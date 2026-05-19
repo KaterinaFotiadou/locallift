@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Localift — Marketing-Strategie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Geist+Mono:wght@400;500;700&family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --indigo: #1B2A4E;
+    --indigo-deep: #0E1729;
+    --indigo-soft: #2C3E66;
+    --brick: #C04B3E;
+    --brick-deep: #8A2E25;
+    --gold: #D4A24C;
+    --gold-soft: #E8C77F;
+    --paper: #F4EBDA;
+    --paper-warm: #EAD9B8;
+    --ink: #15192B;
+    --line: rgba(27, 42, 78, 0.18);
+
+    --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-body: "Geist", system-ui, sans-serif;
+    --font-mono: "Geist Mono", monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(212, 162, 76, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(192, 75, 62, 0.04) 0%, transparent 50%);
+    z-index: 0;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    z-index: 1;
+    opacity: 0.5;
+  }
+
+  .deck {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 48px 72px 72px;
+    display: none;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .slide.active {
+    display: flex;
+    opacity: 1;
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--indigo);
+  }
+
+  .header .left { display: flex; gap: 24px; align-items: center; }
+  .header .logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: var(--indigo);
+  }
+  .header .logo::before {
+    content: "○";
+    color: var(--brick);
+    margin-right: 8px;
+  }
+
+  /* SECTION LABELS */
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brick);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+  }
+  .kicker::before {
+    content: "";
+    width: 32px;
+    height: 1px;
+    background: var(--brick);
+  }
+
+  /* ──────────────────────────────────
+     SLIDE 1: COVER (FULL LAYOUT, NO EMPTY SPACE)
+     ────────────────────────────────── */
+  .cover {
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--indigo) 0%, var(--indigo-deep) 100%);
+    color: var(--paper);
+    padding: 48px 72px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: "";
+    position: absolute;
+    top: -150px;
+    right: -150px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .cover::after {
+    content: "三峽";
+    position: absolute;
+    bottom: -100px;
+    right: -40px;
+    font-family: var(--font-display);
+    font-size: 420px;
+    font-weight: 800;
+    color: var(--brick);
+    opacity: 0.08;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .cover-top .meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .cover-top .meta .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--brick);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .cover-top .brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.03em;
+    color: var(--paper);
+  }
+  .cover-top .brand::before {
+    content: "○";
+    color: var(--brick);
+    margin-right: 8px;
+  }
+
+  .cover-middle {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+  }
+
+  .cover-middle h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(56px, 7.5vw, 112px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    margin-bottom: 28px;
+  }
+  .cover-middle h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--gold-soft);
+  }
+  .cover-middle h1 strong {
+    font-weight: 700;
+    color: var(--brick);
+  }
+
+  .cover-middle .lead {
+    font-size: 20px;
+    line-height: 1.5;
+    color: rgba(244, 235, 218, 0.7);
+    max-width: 720px;
+    font-weight: 300;
+  }
+
+  .cover-stats {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 56px;
+    position: relative;
+    z-index: 2;
+    padding: 28px 0 0;
+    border-top: 1px solid rgba(244, 235, 218, 0.15);
+  }
+  .cover-stat .num {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--gold-soft);
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+  }
+  .cover-stat .num .unit {
+    font-size: 22px;
+    color: var(--brick);
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  .cover-stat .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244, 235, 218, 0.55);
+  }
+
+  .cover-foot {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244, 235, 218, 0.5);
+  }
+
+  /* ──────────────────────────────────
+     SLIDE 2: LEITGEDANKE
+     ────────────────────────────────── */
+  .leit-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 72px;
+    flex: 1;
+    align-items: center;
+  }
+
+  .quote-block { position: relative; }
+  .quote-block .marks {
+    font-family: var(--font-display);
+    font-size: 220px;
+    line-height: 0.8;
+    color: var(--brick);
+    opacity: 0.18;
+    position: absolute;
+    top: -70px;
+    left: -20px;
+    font-weight: 700;
+  }
+  .quote-block h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--indigo);
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 2;
+  }
+  .quote-block h2 strong {
+    font-weight: 700;
+    color: var(--brick);
+    background: linear-gradient(transparent 65%, var(--gold-soft) 65%);
+    padding: 0 4px;
+  }
+
+  .explain-card {
+    background: var(--indigo);
+    color: var(--paper);
+    padding: 44px;
+    border-radius: 4px;
+    position: relative;
+    transform: rotate(1deg);
+    box-shadow: 0 20px 60px rgba(27, 42, 78, 0.25);
+  }
+  .explain-card::before {
+    content: "";
+    position: absolute;
+    top: -8px; left: -8px;
+    width: 100%; height: 100%;
+    border: 1px solid var(--brick);
+    border-radius: 4px;
+    transform: rotate(-2deg);
+    z-index: -1;
+  }
+  .explain-card p {
+    font-size: 16px;
+    line-height: 1.65;
+    margin-bottom: 14px;
+    color: rgba(244, 235, 218, 0.85);
+  }
+  .explain-card p strong {
+    color: var(--gold-soft);
+    font-weight: 600;
+  }
+  .explain-card .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+    font-weight: 500;
+  }
+
+  /* SLIDE TITLES (common) */
+  h2.section-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--indigo);
+    margin-bottom: 14px;
+  }
+  h2.section-title em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--brick);
+  }
+
+  .section-sub {
+    font-size: 17px;
+    color: rgba(21, 25, 43, 0.65);
+    max-width: 720px;
+    margin-bottom: 40px;
+    line-height: 1.55;
+  }
+
+  /* ──────────────────────────────────
+     SLIDE 3: PLATFORM STRATEGY
+     ────────────────────────────────── */
+  .channel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    flex: 1;
+  }
+  .channel-card {
+    background: var(--paper-warm);
+    padding: 32px 28px;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid var(--brick);
+  }
+  .channel-card:nth-child(2) { border-top-color: var(--gold); }
+  .channel-card:nth-child(3) { border-top-color: var(--indigo); }
+
+  .channel-card .num {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--brick);
+    margin-bottom: 6px;
+  }
+  .channel-card:nth-child(2) .num { color: var(--gold); }
+  .channel-card:nth-child(3) .num { color: var(--indigo); }
+
+  .channel-card h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--indigo);
+    margin-bottom: 4px;
+  }
+  .channel-card .platforms {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--brick-deep);
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed var(--line);
+    font-weight: 500;
+  }
+  .channel-card .goal {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .channel-card .goal strong {
+    color: var(--indigo);
+    font-weight: 700;
+  }
+  .channel-card .tone {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: rgba(21, 25, 43, 0.6);
+    line-height: 1.5;
+  }
+  .channel-card .tone span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--indigo);
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  /* ──────────────────────────────────
+     SLIDE 4: KAMPAGNE
+     ────────────────────────────────── */
+  .campaign-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    flex: 1;
+  }
+
+  .campaign-left .hashtag {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 88px;
+    line-height: 0.95;
+    color: var(--brick);
+    margin-bottom: 22px;
+    letter-spacing: -0.04em;
+    position: relative;
+    display: inline-block;
+  }
+  .campaign-left .hashtag::after {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    height: 14px;
+    background: var(--gold-soft);
+    z-index: -1;
+    transform: skew(-5deg);
+  }
+
+  .campaign-left p.lead-text {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 28px;
+    font-weight: 400;
+    max-width: 520px;
+  }
+
+  .hook {
+    background: var(--indigo);
+    color: var(--paper);
+    padding: 28px;
+    border-radius: 4px;
+    border-left: 4px solid var(--gold);
+    margin-bottom: 22px;
+  }
+  .hook .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .hook .text {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.35;
+    color: var(--paper);
+    font-weight: 400;
+  }
+
+  /* TikTok Mockup */
+  .tiktok-mockup {
+    width: 260px;
+    height: 510px;
+    background: #000;
+    border-radius: 28px;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(27, 42, 78, 0.35);
+    transform: rotate(-2deg);
+  }
+  .tiktok-mockup::before {
+    content: "";
+    position: absolute;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: 80px; height: 18px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 10;
+  }
+  .tiktok-screen {
+    position: absolute;
+    inset: 6px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, var(--indigo) 0%, var(--brick-deep) 100%);
+    overflow: hidden;
+    padding: 48px 14px 14px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .tt-storyboard {
+    background: rgba(0,0,0,0.4);
+    padding: 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.6;
+    color: white;
+  }
+  .tt-storyboard .scene {
+    margin-bottom: 7px;
+    padding-bottom: 7px;
+    border-bottom: 1px dashed rgba(255,255,255,0.2);
+  }
+  .tt-storyboard .scene:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  .tt-storyboard .time {
+    color: var(--gold-soft);
+    font-weight: 700;
+  }
+  .tt-overlay-text {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.1;
+    text-align: center;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    letter-spacing: -0.02em;
+  }
+  .tt-overlay-text em {
+    font-style: italic;
+    color: var(--gold-soft);
+  }
+  .tt-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 11px;
+    font-family: var(--font-mono);
+  }
+  .tt-username { font-weight: 700; }
+  .tt-hashtag { color: var(--gold-soft); }
+
+  .campaign-why { margin-top: 20px; }
+  .campaign-why .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brick);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .campaign-why ul { list-style: none; }
+  .campaign-why li {
+    padding-left: 24px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .campaign-why li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--brick);
+    font-weight: 700;
+  }
+
+  /* ──────────────────────────────────
+     SLIDE 5: ZIELGRUPPEN
+     ────────────────────────────────── */
+  .audience-table {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+  }
+  .audience-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.5fr;
+    gap: 40px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+    transition: background 0.2s ease;
+  }
+  .audience-row:hover { background: rgba(212, 162, 76, 0.08); }
+  .audience-row .who {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--indigo);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    letter-spacing: -0.02em;
+  }
+  .audience-row .who .ico {
+    width: 40px; height: 40px;
+    background: var(--gold-soft);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--indigo);
+    flex-shrink: 0;
+  }
+  .audience-row:nth-child(2) .ico { background: var(--brick); color: white; }
+  .audience-row:nth-child(3) .ico { background: var(--indigo); color: var(--paper); }
+  .audience-row:nth-child(4) .ico { background: var(--gold); color: var(--indigo); }
+  .audience-row:nth-child(5) .ico { background: var(--brick-deep); color: white; }
+
+  .audience-row .who .sub {
+    display: block;
+    font-size: 12px;
+    color: rgba(21, 25, 43, 0.5);
+    font-family: var(--font-body);
+    font-weight: 400;
+    margin-top: 2px;
+    letter-spacing: 0;
+  }
+
+  .audience-row .channel {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brick);
+    font-weight: 500;
+  }
+  .audience-row .message {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.4;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  /* ──────────────────────────────────
+     SLIDE 6: ENGAGEMENT LOOP
+     ────────────────────────────────── */
+  .loop-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    flex: 1;
+    align-items: center;
+  }
+  .loop-text h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--indigo);
+    margin-bottom: 22px;
+  }
+  .loop-text h3 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--brick);
+  }
+  .loop-text p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .loop-text .punch {
+    margin-top: 24px;
+    padding: 22px;
+    background: var(--indigo);
+    color: var(--gold-soft);
+    border-radius: 4px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+  .loop-text .punch strong {
+    color: var(--paper);
+    font-style: normal;
+    font-weight: 600;
+  }
+  .loop-diagram {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .loop-diagram svg { width: 100%; height: 100%; }
+
+  /* ──────────────────────────────────
+     SLIDE 7: BUDGET
+     ────────────────────────────────── */
+  .budget-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 56px;
+    flex: 1;
+  }
+  .budget-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .bar-item {
+    display: grid;
+    grid-template-columns: 240px 1fr 100px;
+    gap: 20px;
+    align-items: center;
+  }
+  .bar-item .name {
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .bar-item .name .sub {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgba(21, 25, 43, 0.5);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .bar-track {
+    height: 28px;
+    background: var(--paper-warm);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--brick) 0%, var(--brick-deep) 100%);
+    border-radius: 2px;
+    transform-origin: left;
+    animation: barGrow 0.8s ease forwards;
+  }
+  .bar-fill.gold { background: linear-gradient(90deg, var(--gold) 0%, #B8862E 100%); }
+  .bar-fill.indigo { background: linear-gradient(90deg, var(--indigo-soft) 0%, var(--indigo) 100%); }
+  @keyframes barGrow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  .bar-item .amount {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--indigo);
+    text-align: right;
+  }
+
+  .budget-total {
+    background: var(--indigo);
+    color: var(--paper);
+    padding: 40px;
+    border-radius: 4px;
+    align-self: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .budget-total::before {
+    content: "€";
+    position: absolute;
+    top: -40px;
+    right: -20px;
+    font-family: var(--font-display);
+    font-size: 280px;
+    color: var(--brick);
+    opacity: 0.15;
+    line-height: 1;
+    font-weight: 700;
+  }
+  .budget-total .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
+    font-weight: 500;
+  }
+  .budget-total .num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
+    letter-spacing: -0.04em;
+  }
+  .budget-total .num .currency {
+    font-size: 36px;
+    color: var(--gold-soft);
+    vertical-align: top;
+    margin-right: 6px;
+    font-weight: 500;
+  }
+  .budget-total .period {
+    font-size: 13px;
+    color: rgba(244, 235, 218, 0.6);
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+  }
+  .budget-total .note {
+    padding-top: 20px;
+    border-top: 1px solid rgba(244, 235, 218, 0.2);
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(244, 235, 218, 0.75);
+    font-style: italic;
+    font-family: var(--font-display);
+    position: relative;
+    z-index: 2;
+    font-weight: 400;
+  }
+
+  /* ──────────────────────────────────
+     SLIDE 8: KPIs
+     ────────────────────────────────── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    flex: 1;
+    align-content: center;
+  }
+  .kpi-card {
+    background: var(--paper-warm);
+    padding: 32px 26px;
+    border-radius: 4px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 0.9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--line);
+  }
+  .kpi-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--brick);
+    width: 100%;
+  }
+  .kpi-card:nth-child(2)::after { background: var(--gold); }
+  .kpi-card:nth-child(3)::after { background: var(--indigo); }
+  .kpi-card:nth-child(4)::after { background: var(--brick-deep); }
+
+  .kpi-card .num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 0.95;
+    color: var(--indigo);
+    letter-spacing: -0.04em;
+  }
+  .kpi-card .num .unit {
+    font-size: 28px;
+    color: var(--brick);
+    font-weight: 500;
+  }
+  .kpi-card .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--indigo);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .kpi-card .desc {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(21, 25, 43, 0.7);
+  }
+  .kpi-card .sub-desc {
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(21, 25, 43, 0.55);
+    letter-spacing: 0.05em;
+  }
+
+  /* ──────────────────────────────────
+     SLIDE: EINNAHMEN & BREAK-EVEN
+     ────────────────────────────────── */
+  .revenue-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+    flex: 1;
+  }
+
+  .revenue-streams {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .stream-item {
+    background: var(--paper-warm);
+    border-radius: 4px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    border-left: 3px solid var(--brick);
+    transition: transform 0.3s ease;
+  }
+  .stream-item:nth-child(2) { border-left-color: var(--gold); }
+  .stream-item:nth-child(3) { border-left-color: var(--indigo); }
+  .stream-item:nth-child(4) { border-left-color: var(--brick-deep); }
+  .stream-item:nth-child(5) {
+    border-left-color: var(--indigo);
+    background: var(--indigo);
+    color: var(--paper);
+  }
+  .stream-item .stream-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--brick);
+    letter-spacing: -0.03em;
+  }
+  .stream-item:nth-child(2) .stream-num { color: var(--gold); }
+  .stream-item:nth-child(3) .stream-num { color: var(--indigo); }
+  .stream-item:nth-child(4) .stream-num { color: var(--brick-deep); }
+  .stream-item:nth-child(5) .stream-num { color: var(--gold-soft); }
+
+  .stream-item .stream-info .name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--indigo);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .stream-item:nth-child(5) .stream-info .name { color: var(--paper); }
+
+  .stream-item .stream-info .desc {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgba(21, 25, 43, 0.55);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+  .stream-item:nth-child(5) .stream-info .desc { color: rgba(244, 235, 218, 0.6); }
+
+  .stream-item .stream-amount {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--indigo);
+    letter-spacing: -0.03em;
+  }
+  .stream-item:nth-child(5) .stream-amount { color: var(--gold-soft); }
+
+  .breakeven-card {
+    background: var(--indigo);
+    color: var(--paper);
+    padding: 36px;
+    border-radius: 4px;
+    align-self: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .breakeven-card::before {
+    content: "→";
+    position: absolute;
+    top: -40px;
+    right: -20px;
+    font-family: var(--font-display);
+    font-size: 280px;
+    color: var(--brick);
+    opacity: 0.12;
+    line-height: 1;
+    font-weight: 700;
+  }
+
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .compare-cell {
+    text-align: center;
+    padding: 14px 10px;
+    background: rgba(244, 235, 218, 0.08);
+    border-radius: 4px;
+    border: 1px dashed rgba(244, 235, 218, 0.2);
+  }
+  .compare-cell .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244, 235, 218, 0.55);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .compare-cell .num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--paper);
+    letter-spacing: -0.04em;
+  }
+  .compare-cell.costs .num { color: var(--brick); }
+  .compare-cell.revenue .num { color: var(--gold-soft); }
+
+  .breakeven-highlight {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding-top: 6px;
+  }
+  .breakeven-highlight .kicker-small {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .breakeven-highlight .big {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 0.95;
+    color: var(--gold-soft);
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+  }
+  .breakeven-highlight .big .small-unit {
+    font-size: 22px;
+    color: var(--paper);
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  .breakeven-highlight .sub {
+    font-size: 13px;
+    color: rgba(244, 235, 218, 0.7);
+  }
+
+  .breakeven-quote {
+    position: relative;
+    z-index: 2;
+    padding-top: 16px;
+    border-top: 1px solid rgba(244, 235, 218, 0.2);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--gold-soft);
+    text-align: center;
+    font-weight: 400;
+  }
+  .breakeven-quote strong {
+    color: var(--paper);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ──────────────────────────────────
+     SLIDE: FAZIT & VISION
+     ────────────────────────────────── */
+  .fazit-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    flex: 1;
+    align-items: stretch;
+  }
+
+  .timeline-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+  }
+  .timeline-step {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .timeline-step:last-child { border-bottom: none; }
+
+  .timeline-step .time {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brick);
+    font-weight: 600;
+  }
+  .timeline-step:nth-child(2) .time { color: var(--gold); }
+  .timeline-step:nth-child(3) .time { color: var(--indigo); }
+
+  .timeline-step .text {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.15;
+    color: var(--indigo);
+    letter-spacing: -0.02em;
+  }
+  .timeline-step .text strong {
+    font-weight: 700;
+    color: var(--brick);
+  }
+  .timeline-step:nth-child(2) .text strong { color: var(--gold); }
+  .timeline-step:nth-child(3) .text strong { color: var(--indigo); }
+  .timeline-step .text em {
+    font-style: italic;
+    font-weight: 500;
+    color: rgba(21, 25, 43, 0.7);
+  }
+
+  .closing-card {
+    background: linear-gradient(135deg, var(--indigo) 0%, var(--indigo-deep) 100%);
+    color: var(--paper);
+    padding: 44px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .closing-card::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .closing-card::after {
+    content: "三峽";
+    position: absolute;
+    bottom: -60px;
+    right: -20px;
+    font-family: var(--font-display);
+    font-size: 220px;
+    font-weight: 800;
+    color: var(--brick);
+    opacity: 0.1;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .closing-card .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    position: relative;
+    z-index: 2;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .closing-card .quote {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+  }
+  .closing-card .quote strong {
+    font-weight: 700;
+    color: var(--gold-soft);
+  }
+  .closing-card .quote em {
+    font-style: italic;
+    color: var(--brick);
+  }
+
+  .scale-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    position: relative;
+    z-index: 2;
+    padding-top: 22px;
+    border-top: 1px solid rgba(244, 235, 218, 0.2);
+  }
+  .scale-stat .label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244, 235, 218, 0.55);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .scale-stat .num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--gold-soft);
+    letter-spacing: -0.03em;
+    margin-bottom: 2px;
+  }
+  .scale-stat .desc {
+    font-size: 11px;
+    color: rgba(244, 235, 218, 0.65);
+  }
+
+  .closing-cta {
+    text-align: center;
+    padding: 28px 20px;
+    margin-top: 32px;
+    background: var(--paper-warm);
+    border-radius: 4px;
+    border: 2px dashed var(--brick);
+  }
+  .closing-cta .kicker-small {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brick);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .closing-cta .text {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--indigo);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .closing-cta .text strong {
+    font-weight: 700;
+    color: var(--brick);
+    font-style: normal;
+  }
+
+  /* NAVIGATION */
+  .nav {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(27, 42, 78, 0.95);
+    padding: 10px 16px;
+    border-radius: 100px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(27, 42, 78, 0.25);
+    z-index: 100;
+  }
+  .nav button {
+    background: transparent;
+    border: none;
+    color: var(--paper);
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    font-size: 16px;
+  }
+  .nav button:hover:not(:disabled) { background: rgba(244,235,218,0.15); }
+  .nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+  .nav .indicator {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--gold-soft);
+    letter-spacing: 0.1em;
+    padding: 0 12px;
+    min-width: 60px;
+    text-align: center;
+  }
+  .nav .indicator strong { color: var(--paper); font-weight: 700; }
+
+  .dots {
+    display: flex;
+    gap: 6px;
+    padding: 0 8px;
+  }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(244,235,218,0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .dot.active { background: var(--gold); width: 18px; border-radius: 4px; }
+  .dot:hover:not(.active) { background: rgba(244,235,218,0.5); }
+
+  /* SLIDE NUMBER — hidden (counter is in nav bar) */
+  .slide-num { display: none; }
+
+  /* Responsive */
+  @media (max-width: 1400px) {
+    .slide { padding: 40px 56px 64px; }
+    .cover { padding: 40px 56px 48px; }
+    .cover-middle h1 { font-size: clamp(48px, 7vw, 96px); }
+    h2.section-title { font-size: 44px; }
+    .quote-block h2 { font-size: 48px; }
+    .campaign-left .hashtag { font-size: 68px; }
+    .kpi-card .num { font-size: 48px; }
+    .budget-total .num { font-size: 56px; }
+    .cover-stat .num { font-size: 38px; }
+  }
+
+  @media (max-width: 1100px) {
+    .slide { padding: 32px 40px 60px; }
+    .cover { padding: 36px 40px 44px; }
+    .channel-grid { gap: 16px; }
+    .channel-card { padding: 24px 20px; }
+    .channel-card h3 { font-size: 22px; }
+    .leit-grid { gap: 40px; }
+    .campaign-grid { gap: 32px; }
+    .tiktok-mockup { width: 220px; height: 440px; }
+    .kpi-card { padding: 24px 20px; }
+    .kpi-card .num { font-size: 40px; }
+    .cover-stats { gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- SLIDE 1: COVER (filled with stats, no empty space) -->
+  <section class="slide cover active" data-slide="1">
+    <div class="cover-top">
+      <div class="meta"><span class="dot"></span>Localift · Marketing-Strategie · 2026</div>
+      <div class="brand">Localift</div>
+    </div>
+
+    <div class="cover-middle">
+      <h1>Wie wir eine <em>200 Jahre alte</em> Straße <strong>viral</strong> machen.</h1>
+      <p class="lead">Eine Social-Media- und Marketing-Strategie für eine Straße, die Google nicht kennt.</p>
+    </div>
+
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="num">400K<span class="unit">+</span></div>
+        <div class="label">Besucher pro Jahr</div>
+      </div>
+      <div class="cover-stat">
+        <div class="num">15,2 Mio.<span class="unit">NT$</span></div>
+        <div class="label">verlorener Umsatz</div>
+      </div>
+      <div class="cover-stat">
+        <div class="num">0</div>
+        <div class="label">Google-Ergebnisse</div>
+      </div>
+    </div>
+
+    <div class="cover-foot">
+      <span>Team Taiwan · Going Viral</span>
+      <span>01 / 09</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: LEITGEDANKE -->
+  <section class="slide" data-slide="2">
+    <div class="header">
+      <div class="left">
+        <span class="logo">Localift</span>
+        <span>Marketing-Strategie</span>
+      </div>
+      <span>Kapitel 01 — Haltung</span>
+    </div>
+    <span class="slide-num">02 / 09</span>
+
+    <div class="kicker">Leitgedanke</div>
+    <div class="leit-grid">
+      <div class="quote-block">
+        <span class="marks">"</span>
+        <h2>Wir vermarkten nicht die App.<br>Wir vermarkten die <strong>Straße</strong>.</h2>
+      </div>
+      <div class="explain-card">
+        <div class="label">→ Was das bedeutet</div>
+        <p>Wir bewerben nicht <em>„noch eine Tourismus-App"</em>. Wir verkaufen ein <strong>Geheimnis, das man entdecken muss</strong>.</p>
+        <p>Sanxia ist der <strong>Held der Geschichte</strong>. Localift ist der Schlüssel.</p>
+        <p>Das ist der Unterschied zwischen einer Anzeige auf TripAdvisor — und einem TikTok, das 2 Millionen Aufrufe macht.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: PLATFORM STRATEGY -->
+  <section class="slide" data-slide="3">
+    <div class="header">
+      <div class="left">
+        <span class="logo">Localift</span>
+        <span>Marketing-Strategie</span>
+      </div>
+      <span>Kapitel 02 — Kanäle</span>
+    </div>
+    <span class="slide-num">03 / 09</span>
+
+    <div class="kicker">Plattform-Strategie</div>
+    <h2 class="section-title">Drei Kanäle, <em>drei Aufgaben</em>.</h2>
+    <p class="section-sub">Statt überall halbherzig zu posten: Jede Plattform bekommt eine klare Rolle. Reichweite, Vertrauen, Tiefe.</p>
+
+    <div class="channel-grid">
+      <div class="channel-card">
+        <div class="num">/ 01</div>
+        <h3>Der Reichweiten-Kanal</h3>
+        <div class="platforms">TikTok · Instagram Reels</div>
+        <p class="goal"><strong>Aufgabe:</strong> Reichweite und der „Wo ist das?"-Moment.</p>
+        <p class="goal">Vertikale Videos, mystischer Ton, schneller Schnitt. Die Indigo-Färberei als visueller Magnet.</p>
+        <div class="tone">
+          <span>Tonalität</span>
+          Schnell · Visuell · Mystisch
+        </div>
+      </div>
+
+      <div class="channel-card">
+        <div class="num">/ 02</div>
+        <h3>Der Vertrauens-Kanal</h3>
+        <div class="platforms">Xiaohongshu · IG-Posts</div>
+        <p class="goal"><strong>Aufgabe:</strong> Reisende erreichen, die aktiv <em>recherchieren</em> — vor allem aus Asien.</p>
+        <p class="goal">Xiaohongshu ist <strong>die</strong> Plattform für asiatische Reiseplanung. Hier hat Sanxia Heimvorteil.</p>
+        <div class="tone">
+          <span>Tonalität</span>
+          Guides · Karussells · Geheimtipp
+        </div>
+      </div>
+
+      <div class="channel-card">
+        <div class="num">/ 03</div>
+        <h3>Der Tiefen-Kanal</h3>
+        <div class="platforms">YouTube Shorts · Reise-Blogs</div>
+        <p class="goal"><strong>Aufgabe:</strong> Langfristige Sichtbarkeit und Glaubwürdigkeit.</p>
+        <p class="goal">60-Sekunden Mini-Dokus über die Indigo-Färber. Was Touristen auf TikTok <em>nicht</em> sehen.</p>
+        <div class="tone">
+          <span>Tonalität</span>
+          Ruhig · Dokumentarisch · Echt
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: KAMPAGNE -->
+  <section class="slide" data-slide="4">
+    <div class="header">
+      <div class="left">
+        <span class="logo">Localift</span>
+        <span>Marketing-Strategie</span>
+      </div>
+      <span>Kapitel 03 — Kampagne</span>
+    </div>
+    <span class="slide-num">04 / 09</span>
+
+    <div class="kicker">Die virale Kampagne</div>
+
+    <div class="campaign-grid">
+      <div class="campaign-left">
+        <div class="hashtag">#FindeSanxia</div>
+        <p class="lead-text">Ein Format, das Nutzer selbst nachbauen — und damit die App weiterverbreiten, ohne dass wir einen Cent dafür zahlen.</p>
+
+        <div class="hook">
+          <div class="label">Hook-Satz für jedes Video</div>
+          <div class="text">„Google zeigt dir das nicht. Aber hier lebt Taiwan wirklich."</div>
+        </div>
+
+        <div class="campaign-why">
+          <div class="label">Warum das funktioniert</div>
+          <ul>
+            <li>Klare Vorher/Nachher-Mechanik (der Algorithmus liebt das)</li>
+            <li>Reproduzierbar — jeder kann es kopieren (= virale DNA)</li>
+            <li>App-Nutzung <em>ist</em> der Inhalt (Nutzer = Werbeträger)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="campaign-right">
+        <div class="tiktok-mockup">
+          <div class="tiktok-screen">
+            <div class="tt-overlay-text">Google zeigt dir das <em>nicht</em>.</div>
+            <div class="tt-storyboard">
+              <div class="scene"><span class="time">0:00</span> Google: „Things to do Taipei" — Sanxia? Nichts.</div>
+              <div class="scene"><span class="time">0:03</span> Schnitt → Localift App öffnet sich</div>
+              <div class="scene"><span class="time">0:06</span> Straße erscheint, Indigo-Färber bei der Arbeit</div>
+              <div class="scene"><span class="time">0:12</span> QR scannen → Stempel freigeschaltet</div>
+              <div class="scene"><span class="time">0:15</span> Outro: „Finde Sanxia. Nutze Localift."</div>
+            </div>
+            <div class="tt-bottom">
+              <div class="tt-username">@localift_tw</div>
+              <div class="tt-hashtag">#FindeSanxia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: ZIELGRUPPEN -->
+  <section class="slide" data-slide="5">
+    <div class="header">
+      <div class="left">
+        <span class="logo">Localift</span>
+        <span>Marketing-Strategie</span>
+      </div>
+      <span>Kapitel 04 — Zielgruppen</span>
+    </div>
+    <span class="slide-num">05 / 09</span>
+
+    <div class="kicker">Zielgruppen-Ansprache</div>
+    <h2 class="section-title">Eine App, <em>fünf Sprachen</em>.</h2>
+    <p class="section-sub">Jede Zielgruppe braucht eine andere Botschaft auf einem anderen Kanal. Kein „eine Botschaft für alle".</p>
+
+    <div class="audience-table">
+      <div class="audience-row">
+        <div class="who">
+          <div class="ico">TW</div>
+          <div>Junge Taiwanesen<span class="sub">18–30 Jahre</span></div>
+        </div>
+        <div class="channel">TikTok · Xiaohongshu</div>
+        <div class="message">„Eure Großeltern kennen das. Ihr nicht. Warum?"</div>
+      </div>
+
+      <div class="audience-row">
+        <div class="who">
+          <div class="ico">EN</div>
+          <div>Westliche Touristen<span class="sub">Backpacker · Kulturreisende</span></div>
+        </div>
+        <div class="channel">Instagram · Reddit · Google</div>
+        <div class="message">„Das hat der Reiseführer vergessen."</div>
+      </div>
+
+      <div class="audience-row">
+        <div class="who">
+          <div class="ico">AS</div>
+          <div>Asiatische Reisende<span class="sub">Japan · Korea · Singapur</span></div>
+        </div>
+        <div class="channel">Xiaohongshu · Instagram</div>
+        <div class="message">„Geheimtipp — 30 Minuten von Taipei."</div>
+      </div>
+
+      <div class="audience-row">
+        <div class="who">
+          <div class="ico">B2B</div>
+          <div>Lokale Händler<span class="sub">Shops · Künstler · Werkstätten</span></div>
+        </div>
+        <div class="channel">LINE · Vor-Ort-Termine</div>
+        <div class="message">„Sichtbar werden — ohne Tech-Kenntnisse."</div>
+      </div>
+
+      <div class="audience-row">
+        <div class="who">
+          <div class="ico">B2G</div>
+          <div>Behörden<span class="sub">Tourismusbüro · Stadtverwaltung</span></div>
+        </div>
+        <div class="channel">Pitches · Direktansprache</div>
+        <div class="message">„Smarter Tourismus — mit messbaren Daten."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: ENGAGEMENT LOOP -->
+  <section class="slide" data-slide="6">
+    <div class="header">
+      <div class="left">
+        <span class="logo">Localift</span>
+        <span>Marketing-Strategie</span>
+      </div>
+      <span>Kapitel 05 — Kreislauf</span>
+    </div>
+    <span class="slide-num">06 / 09</span>
+
+    <div class="kicker">Engagement-Kreislauf</div>
+
+    <div class="loop-container">
+      <div class="loop-text">
+        <h3>Die App selbst <em>ist</em> der Marketingkanal.</h3>
+        <p>Unsere bestehende <strong>Stempel-Challenge</strong> wird zum viralen Motor: Nutzer sammeln digitale Stempel an realen Orten in Sanxia.</p>
+        <p>Komplettes Set → kostenloser handgefärbter Indigo-Beutel von einem lokalen Shop. Ein „Stempel teilen"-Button postet automatisch auf Instagram und TikTok.</p>
+        <div class="punch">Jeder Nutzer wird zum <strong>Werbeträger</strong>. Das Marketing-Budget bleibt klein — die Nutzer produzieren Inhalte für uns.</div>
+      </div>
+
+      <div class="loop-diagram">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="200" cy="200" r="170" fill="none" stroke="#1B2A4E" stroke-width="1" stroke-dasharray="3 5" opacity="0.4"/>
+
+          <circle cx="200" cy="200" r="50" fill="#1B2A4E"/>
+          <text x="200" y="194" text-anchor="middle" fill="#E8C77F" font-family="Geist Mono, monospace" font-size="9" letter-spacing="2">KREISLAUF</text>
+          <text x="200" y="212" text-anchor="middle" fill="#F4EBDA" font-family="Bricolage Grotesque, sans-serif" font-size="14" font-weight="700">LOCALIFT</text>
+
+          <circle cx="200" cy="40" r="32" fill="#C04B3E"/>
+          <text x="200" y="38" text-anchor="middle" fill="#F4EBDA" font-family="Bricolage Grotesque, sans-serif" font-size="16" font-weight="700">1</text>
+          <text x="200" y="54" text-anchor="middle" fill="#F4EBDA" font-family="Geist Mono, monospace" font-size="7" letter-spacing="1">BESUCH</text>
+          <text x="200" y="92" text-anchor="middle" fill="#1B2A4E" font-family="Geist, sans-serif" font-size="11" font-weight="600">Besuch in Sanxia</text>
+
+          <circle cx="360" cy="200" r="32" fill="#D4A24C"/>
+          <text x="360" y="198" text-anchor="middle" fill="#1B2A4E" font-family="Bricolage Grotesque, sans-serif" font-size="16" font-weight="700">2</text>
+          <text x="360" y="214" text-anchor="middle" fill="#1B2A4E" font-family="Geist Mono, monospace" font-size="7" letter-spacing="1">STEMPEL</text>
+          <text x="360" y="252" text-anchor="middle" fill="#1B2A4E" font-family="Geist, sans-serif" font-size="11" font-weight="600">Stempel sammeln</text>
+
+          <circle cx="200" cy="360" r="32" fill="#1B2A4E"/>
+          <text x="200" y="358" text-anchor="middle" fill="#E8C77F" font-family="Bricolage Grotesque, sans-serif" font-size="16" font-weight="700">3</text>
+          <text x="200" y="374" text-anchor="middle" fill="#F4EBDA" font-family="Geist Mono, monospace" font-size="7" letter-spacing="1">TEILEN</text>
+          <text x="200" y="316" text-anchor="middle" fill="#1B2A4E" font-family="Geist, sans-serif" font-size="11" font-weight="600">Auf Social Media teilen</text>
+
+          <circle cx="40" cy="200" r="32" fill="#8A2E25"/>
+          <text x="40" y="198" text-anchor="middle" fill="#F4EBDA" font-family="Bricolage Grotesque, sans-serif" font-size="16" font-weight="700">4</text>
+          <text x="40" y="214" text-anchor="middle" fill="#F4EBDA" font-family="Geist Mono, monospace" font-size="7" letter-spacing="1">REICHWEITE</text>
+          <text x="40" y="252" text-anchor="middle" fill="#1B2A4E" font-family="Geist, sans-serif" font-size="11" font-weight="600">Neue Nutzer</text>
+
+          <path d="M 230 60 Q 320 80 340 175" fill="none" stroke="#C04B3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <path d="M 340 230 Q 320 320 230 350" fill="none" stroke="#D4A24C" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <path d="M 170 350 Q 80 320 60 230" fill="none" stroke="#1B2A4E" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <path d="M 60 175 Q 80 80 170 60" fill="none" stroke="#8A2E25" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+          <defs>
+            <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="#1B2A4E"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: BUDGET -->
+  <section class="slide" data-slide="7">
+    <div class="header">
+      <div class="left">
+        <span class="logo">Localift</span>
+        <span>Marketing-Strategie</span>
+      </div>
+      <span>Kapitel 06 — Budget</span>
+    </div>
+    <span class="slide-num">07 / 09</span>
+
+    <div class="kicker">Budget-Rahmen · 6 Monate</div>
+    <h2 class="section-title">Realistisch <em>ambitioniert</em>.</h2>
+
+    <div class="budget-grid">
+      <div class="budget-bars">
+        <div class="bar-item">
+          <div class="name">Micro-Influencer<span class="sub">3–5 Kooperationen · Taiwan-Reise-Nische</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div>
+          <div class="amount">8.000 €</div>
+        </div>
+        <div class="bar-item">
+          <div class="name">Bezahlte Werbung<span class="sub">TikTok · Meta</span></div>
+          <div class="bar-track"><div class="bar-fill gold" style="width: 62%;"></div></div>
+          <div class="amount">5.000 €</div>
+        </div>
+        <div class="bar-item">
+          <div class="name">Eigene Content-Produktion<span class="sub">Ausrüstung · Werkzeuge</span></div>
+          <div class="bar-track"><div class="bar-fill indigo" style="width: 37%;"></div></div>
+          <div class="amount">3.000 €</div>
+        </div>
+        <div class="bar-item">
+          <div class="name">PR & Tourismus-Outreach<span class="sub">Tourismusbüro · Presse</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width: 25%;"></div></div>
+          <div class="amount">2.000 €</div>
+        </div>
+        <div class="bar-item">
+          <div class="name">QR-Sticker vor Ort<span class="sub">Aktivierung in Sanxia</span></div>
+          <div class="bar-track"><div class="bar-fill gold" style="width: 25%;"></div></div>
+          <div class="amount">2.000 €</div>
+        </div>
+      </div>
+
+      <div class="budget-total">
+        <div class="label">Gesamt · Pilot-Launch</div>
+        <div class="num"><span class="currency">€</span>20.000</div>
+        <div class="period">über 6 Monate</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8: EINNAHMEN & BREAK-EVEN -->
+  <section class="slide" data-slide="8">
+    <div class="header">
+      <div class="left">
+        <span class="logo">Localift</span>
+        <span>Marketing-Strategie</span>
+      </div>
+      <span>Kapitel 07 — Einnahmen</span>
+    </div>
+
+    <div class="kicker">Wirtschaftlichkeit · Jahr 1</div>
+    <h2 class="section-title">Break-even im <em>Monat 9</em>.</h2>
+    <p class="section-sub">Fünf Revenue Streams. Ab Monat 9 finanziert sich Localift selbst.</p>
+
+    <div class="revenue-grid">
+      <div class="revenue-streams">
+        <div class="stream-item">
+          <div class="stream-num">01</div>
+          <div class="stream-info">
+            <div class="name">Standard-Listings</div>
+            <div class="desc">30 Händler · 30 €/Monat</div>
+          </div>
+          <div class="stream-amount">10.800 €</div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-num">02</div>
+          <div class="stream-info">
+            <div class="name">Premium-Listings</div>
+            <div class="desc">Top-Spots · 5 Händler · 100 €/Mon.</div>
+          </div>
+          <div class="stream-amount">6.000 €</div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-num">03</div>
+          <div class="stream-info">
+            <div class="name">Event-Promotion</div>
+            <div class="desc">4 Events · saisonale Festivals</div>
+          </div>
+          <div class="stream-amount">2.000 €</div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-num">04</div>
+          <div class="stream-info">
+            <div class="name">Sponsoring</div>
+            <div class="desc">Tea-Brands · Tourism-Partner</div>
+          </div>
+          <div class="stream-amount">10.000 €</div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-num">05</div>
+          <div class="stream-info">
+            <div class="name">Government Contract</div>
+            <div class="desc">Smart Tourism Pilot · Stadtverwaltung</div>
+          </div>
+          <div class="stream-amount">25.000 €</div>
+        </div>
+      </div>
+
+      <div class="breakeven-card">
+        <div class="compare-row">
+          <div class="compare-cell costs">
+            <div class="label">Kosten Jahr 1</div>
+            <div class="num">40K €</div>
+          </div>
+          <div class="compare-cell revenue">
+            <div class="label">Umsatz Jahr 1</div>
+            <div class="num">54K €</div>
+          </div>
+        </div>
+
+        <div class="breakeven-highlight">
+          <div class="kicker-small">Break-even</div>
+          <div class="big">Monat 9<span class="small-unit"></span></div>
+          <div class="sub">Gewinn Jahr 1: ~14.000 €</div>
+        </div>
+
+        <div class="breakeven-quote">
+          „Ab Monat 9 finanziert <strong>Localift</strong> sich selbst."
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 9: KPIs -->
+  <section class="slide" data-slide="9">
+    <div class="header">
+      <div class="left">
+        <span class="logo">Localift</span>
+        <span>Marketing-Strategie</span>
+      </div>
+      <span>Kapitel 08 — Erfolg</span>
+    </div>
+    <span class="slide-num">08 / 09</span>
+
+    <div class="kicker">Erfolgsmessung</div>
+    <h2 class="section-title">So wissen wir, <em>dass es funktioniert</em>.</h2>
+    <p class="section-sub">Vier harte Kennzahlen nach 6 Monaten. Kein Bauchgefühl, keine Eitelkeits-Metriken.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="label">App-Downloads</div>
+        <div>
+          <div class="num">10K<span class="unit">+</span></div>
+          <p class="sub-desc">in 6 Monaten</p>
+        </div>
+        <p class="desc">Erstes Signal: Die App findet ihr Publikum.</p>
+      </div>
+
+      <div class="kpi-card">
+        <div class="label">Hashtag-Reichweite</div>
+        <div>
+          <div class="num">1 Mio.<span class="unit">+</span></div>
+          <p class="sub-desc">Aufrufe auf #FindeSanxia</p>
+        </div>
+        <p class="desc">Beweis, dass die Kampagne organisch trägt.</p>
+      </div>
+
+      <div class="kpi-card">
+        <div class="label">Aktive Händler</div>
+        <div>
+          <div class="num">30<span class="unit">+</span></div>
+          <p class="sub-desc">Einträge auf der Plattform</p>
+        </div>
+        <p class="desc">Die B2B-Seite funktioniert — die Straße ist drauf.</p>
+      </div>
+
+      <div class="kpi-card">
+        <div class="label">Wiederkehr-Rate</div>
+        <div>
+          <div class="num">25<span class="unit">%</span></div>
+          <p class="sub-desc">Wiederholungs-Check-ins</p>
+        </div>
+        <p class="desc">Nutzer kommen zurück — keine Einmal-App.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 10 removed -->
+
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav">
+  <button id="prev" title="Zurück (←)">◂</button>
+  <div class="dots" id="dots"></div>
+  <div class="indicator"><strong id="curr">1</strong> / <span id="total">8</span></div>
+  <button id="next" title="Weiter (→)">▸</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const curr = document.getElementById('curr');
+  const totalEl = document.getElementById('total');
+  const dotsContainer = document.getElementById('dots');
+
+  let current = 0;
+  totalEl.textContent = total;
+
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.dataset.index = i;
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  }
+  const dots = document.querySelectorAll('.dot');
+
+  function goTo(index) {
+    if (index < 0 || index >= total) return;
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    curr.textContent = current + 1;
+    prev.disabled = current === 0;
+    next.disabled = current === total - 1;
+  }
+
+  prev.addEventListener('click', () => goTo(current - 1));
+  next.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') goTo(current + 1);
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End') goTo(total - 1);
+  });
+
+  prev.disabled = true;
+</script>
+
+</body>
+</html>
